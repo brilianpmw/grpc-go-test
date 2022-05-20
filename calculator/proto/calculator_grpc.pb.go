@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CalculatorServiceClient interface {
-	Calculator(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorRequest, error)
+	Calculator(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error)
 }
 
 type calculatorServiceClient struct {
@@ -33,8 +33,8 @@ func NewCalculatorServiceClient(cc grpc.ClientConnInterface) CalculatorServiceCl
 	return &calculatorServiceClient{cc}
 }
 
-func (c *calculatorServiceClient) Calculator(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorRequest, error) {
-	out := new(CalculatorRequest)
+func (c *calculatorServiceClient) Calculator(ctx context.Context, in *CalculatorRequest, opts ...grpc.CallOption) (*CalculatorResponse, error) {
+	out := new(CalculatorResponse)
 	err := c.cc.Invoke(ctx, "/calculator.CalculatorService/Calculator", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *calculatorServiceClient) Calculator(ctx context.Context, in *Calculator
 // All implementations must embed UnimplementedCalculatorServiceServer
 // for forward compatibility
 type CalculatorServiceServer interface {
-	Calculator(context.Context, *CalculatorRequest) (*CalculatorRequest, error)
+	Calculator(context.Context, *CalculatorRequest) (*CalculatorResponse, error)
 	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
@@ -54,7 +54,7 @@ type CalculatorServiceServer interface {
 type UnimplementedCalculatorServiceServer struct {
 }
 
-func (UnimplementedCalculatorServiceServer) Calculator(context.Context, *CalculatorRequest) (*CalculatorRequest, error) {
+func (UnimplementedCalculatorServiceServer) Calculator(context.Context, *CalculatorRequest) (*CalculatorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Calculator not implemented")
 }
 func (UnimplementedCalculatorServiceServer) mustEmbedUnimplementedCalculatorServiceServer() {}

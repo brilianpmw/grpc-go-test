@@ -13,7 +13,7 @@ import (
 
 func doCalculate(c pb.CalculatorServiceClient) {
 	log.Printf("do calculator jalan ")
-	res,err := c.Greet(context.Background(),&pb.CalculatorRequest{
+	res,err := c.Calculator(context.Background(),&pb.CalculatorRequest{
 		Number1 : 1,
 		Number2:2,
 	})
@@ -22,5 +22,5 @@ func doCalculate(c pb.CalculatorServiceClient) {
 		log.Fatalf("do greet error",err)
 	}
 
-	log.Printf("result : %s ",res)
+	log.Printf("result : %d ",res.Result)
 }

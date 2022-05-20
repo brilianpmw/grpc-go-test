@@ -19,6 +19,6 @@ message CalculatorResponse {
 }
 
 service CalculatorService {
-    rpc Calculator (CalculatorRequest) returns (CalculatorRequest);
+    rpc Calculator (CalculatorRequest) returns (CalculatorResponse);
 
 }

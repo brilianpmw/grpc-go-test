@@ -20,6 +20,7 @@ func main() {
 	log.Printf("run  ")
 
 	s:=grpc.NewServer()
+	// fmt.Println(&Server{})
 	pb.RegisterGreetServiceServer(s,&Server{})
 	if err = s.Serve(lis) ; err != nil {
 		log.Fatalf("failed load server")
